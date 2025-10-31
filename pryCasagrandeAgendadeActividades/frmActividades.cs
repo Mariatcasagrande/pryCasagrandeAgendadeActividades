@@ -26,7 +26,7 @@ namespace pryCasagrandeAgendadeActividades
             clsConexion clsConexionBD = new clsConexion();
             clsConexionBD.ConectarBD();
             clsConexionBD.AgregarABase(txtActividad.Text, Convert.ToDateTime( dtpFecha.Text) , txtObservacion.Text);
-            
+            this.Close();
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

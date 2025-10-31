@@ -32,5 +32,29 @@ namespace pryCasagrandeAgendadeActividades
             clsConexionBD.ConectarBD();
             
         }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            clsConexion clsConexionBD = new clsConexion();
+            clsConexionBD.ConectarBD();
+            if (dgvAgenda.CurrentRow != null) 
+            { 
+                string asunto = dgvAgenda.CurrentRow.Cells[0].Value.ToString();
+                clsConexionBD.Eliminar(asunto);
+                clsConexionBD.AgregaraTabla(dgvAgenda);
+            }
+        }
+
+        private void btnRefrescar_Click(object sender, EventArgs e)
+        {
+            clsConexion clsConexionBD = new clsConexion();
+            clsConexionBD.ConectarBD();
+            clsConexionBD.AgregaraTabla(dgvAgenda);
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

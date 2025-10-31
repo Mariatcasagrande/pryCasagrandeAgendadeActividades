@@ -22,16 +22,13 @@ namespace pryCasagrandeAgendadeActividades
         OleDbDataReader lectorDataReader;
 
         public string nombreBaseDeDatos;
-
+       
         public void ConectarBD()
         {
             try
             {
-                
                 coneccionBaseDatos = new OleDbConnection(cadenaConexion);
-
                 nombreBaseDeDatos = coneccionBaseDatos.DataSource;
-
                 coneccionBaseDatos.Open();
 
                 //MessageBox.Show("Conectado a " + nombreBaseDeDatos);
@@ -64,23 +61,26 @@ namespace pryCasagrandeAgendadeActividades
             comandoBaseDatos.CommandText = "SELECT * FROM Actividades";
 
             lectorDataReader = comandoBaseDatos.ExecuteReader();
+            Grilla.Rows.Clear();
             while (lectorDataReader.Read())
             {
                 Grilla.Rows.Add(lectorDataReader[1], lectorDataReader[2], lectorDataReader[3]);
             }
         }
-        public void Eliminar(DataGridView Grilla)
+        public void Eliminar(string asunto)
         {
-            comandoBaseDatos = new OleDbCommand();
-            comandoBaseDatos.Connection = coneccionBaseDatos;
-            comandoBaseDatos.CommandType = System.Data.CommandType.Text;
-
-            comandoBaseDatos.CommandText = "SELECT * FROM Actividades";
-
-            lectorDataReader = comandoBaseDatos.ExecuteReader();
-            while (lectorDataReader.Read())
+            try
             {
-                //Grilla.Rows.Remove;
+                coneccionBaseDatos = new OleDbConnection(cadenaConexion);
+                coneccionBaseDatos.Open();
+                comandoBaseDatos = new OleDbCommand();
+                comandoBaseDatos.Connection = coneccionBaseDatos;
+                comandoBaseDatos.CommandText = $"DELETE FROM Actividades WHERE Asunto = '{asunto}'";
+                comandoBaseDatos.ExecuteReader();
+            }
+            catch
+            {
+                MessageBox.Show("Tiene un errorcito - ");
             }
         }
 
